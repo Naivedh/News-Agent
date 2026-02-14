@@ -56,6 +56,15 @@ python3 news_agent.py
 
 **$0/month** - All services on free tier, no credit card required.
 
+## Stopping the Workflow
+
+To stop daily emails:
+```bash
+git rm .github/workflows/news.yml
+git commit -m "chore: remove daily news workflow"
+git push
+```
+
 ## News Sources
 
 - WSJ Markets & Business
