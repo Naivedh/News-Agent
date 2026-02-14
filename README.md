@@ -1,51 +1,66 @@
 # AI News Agent
 
-Automated daily news briefing for tech and financial markets.
+Automated daily market news briefing system that fetches tech and financial news, analyzes it with AI, and emails a summary every morning.
 
-## Setup
+## Features
+
+- 📰 Fetches from 8 RSS feeds (WSJ, Reuters, TechCrunch, CNBC, Bloomberg, Cointelegraph)
+- 🤖 AI analysis using Groq API (Llama 3.3 70B) to identify top 7-10 market-moving stories
+- 📧 HTML email delivery via Resend API with professional formatting
+- ⏰ Automated daily execution via GitHub Actions
+- 🔒 Secure API key management with GitHub Secrets
+
+## Quick Start
+
+### 1. Fork/Clone this repo
+
+### 2. Add GitHub Secrets
+Go to: `Settings` → `Secrets and variables` → `Actions` → `New repository secret`
+
+Add these 4 secrets:
+- `GROQ_API_KEY` - Get from https://console.groq.com (free)
+- `RESEND_API_KEY` - Get from https://resend.com/api-keys (free, 100 emails/day)
+- `FROM_EMAIL_NEWS_AGENT` - Use `onboarding@resend.dev`
+- `RECIPIENT_EMAIL_NEWS_AGENT` - Your email address
+
+### 3. Test the Workflow
+- Go to `Actions` tab
+- Click `Daily News Briefing`
+- Click `Run workflow` → `Run workflow`
+- Check your email!
+
+### 4. Automatic Daily Runs
+The workflow runs automatically every day at 8 AM PST (4 PM UTC). No further action needed!
+
+## Local Development
 
 1. Install dependencies:
 ```bash
 pip3 install -r requirements.txt
 ```
 
-2. Configure credentials:
+2. Create `.env` file:
 ```bash
-cp .env.example .env
-nano .env  # Fill in your API keys
+GROQ_API_KEY=your_key_here
+RESEND_API_KEY=your_key_here
+FROM_EMAIL=onboarding@resend.dev
+RECIPIENT_EMAIL=your_email@example.com
 ```
 
-3. Test it:
+3. Run manually:
 ```bash
-chmod +x test_run.sh
-./test_run.sh
+python3 news_agent.py
 ```
 
-## Daily Automation
+## Cost
 
-Add to crontab to run every morning at 8 AM:
-```bash
-crontab -e
-```
-
-Add this line:
-```
-0 8 * * * cd /home/shnaiv/AI-Agent && export $(cat .env | xargs) && /usr/bin/python3 news_agent.py >> /home/shnaiv/AI-Agent/logs.txt 2>&1
-```
-
-## What You Need
-
-1. **Groq API Key** (free): https://console.groq.com
-2. **Resend API Key** (free, 100 emails/day): https://resend.com/api-keys
-   - Sign up at https://resend.com
-   - Create API key
-   - Use `onboarding@resend.dev` as FROM email
+**$0/month** - All services on free tier, no credit card required.
 
 ## News Sources
 
-- WSJ Markets
+- WSJ Markets & Business
 - Reuters Finance
 - TechCrunch
-- The Verge
-- CNBC
+- CNBC Markets & Business
 - Cointelegraph
+- Bloomberg

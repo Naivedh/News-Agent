@@ -11,10 +11,10 @@ Automated daily news briefing system that fetches tech and financial news, analy
 3. **Email Sender** - Sends via Resend API with HTML formatting (bold labels, styled layout, blue borders)
 
 ### Tech Stack
-- Python 3
+- Python 3.13
 - Libraries: `requests`, `feedparser`
 - APIs: Groq (LLM), Resend (email)
-- Scheduler: cron
+- Automation: GitHub Actions (cron schedule)
 
 ## File Structure
 ```
@@ -75,7 +75,27 @@ RECIPIENT_EMAIL=user@email.com
 
 ## Automation Setup
 
-### Cron Job (Daily at 8 AM)
+### GitHub Actions (Recommended)
+The project uses GitHub Actions for automated daily execution:
+
+1. **Secrets Configuration**
+   - Go to: `https://github.com/YOUR_USERNAME/News-Agent/settings/secrets/actions`
+   - Add these secrets:
+     - `GROQ_API_KEY` - From console.groq.com
+     - `RESEND_API_KEY` - From resend.com/api-keys
+     - `FROM_EMAIL_NEWS_AGENT` - onboarding@resend.dev
+     - `RECIPIENT_EMAIL_NEWS_AGENT` - Your email address
+
+2. **Manual Trigger**
+   - Go to: Actions tab → Daily News Briefing
+   - Click "Run workflow" to test immediately
+
+3. **Automatic Schedule**
+   - Runs daily at 8 AM PST (4 PM UTC)
+   - Configured in `.github/workflows/daily-news.yml`
+   - Free tier: 2,000 minutes/month (uses ~30-60 minutes/month)
+
+### Local Cron Job (Alternative)
 ```bash
 crontab -e
 ```
