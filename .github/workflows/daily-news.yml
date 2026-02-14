@@ -1,8 +1,9 @@
 name: Daily News Briefing
 
+# Automated daily market news briefing
 on:
   schedule:
-    - cron: '0 16 * * *'  # 8 AM PST = 4 PM UTC (adjust for your timezone)
+    - cron: '0 16 * * *'  # 8 AM PST = 4 PM UTC
   workflow_dispatch:  # Allows manual trigger from GitHub UI
 
 jobs:
